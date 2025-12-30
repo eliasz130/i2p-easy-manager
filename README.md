@@ -1,500 +1,443 @@
 # I2P Easy Manager
 
-A user-friendly configuration manager that simplifies access to the I2P (Invisible Internet Project) network by automating I2Pd setup and Firefox configuration.
+A lightweight, user-friendly tool that simplifies I2P network access through automated I2Pd and Firefox configuration.
+
+**Two versions available:**
+- **CLI** - Interactive dashboard + command-line interface (this branch)
+- **GUI** - Desktop application with system tray (separate branch)
 
 ---
 
-## Project Goals
+## Project Philosophy
 
-- **Simple Setup** - One-click installation and configuration of I2P
-- **Beginner-Friendly** - Intuitive interface for users new to I2P
-- **Privacy-Focused** - Hardened Firefox profile with maximum security
-- **Zero Cost** - No paid dependencies or services required
-- **Lightweight** - Configuration manager, not a full browser bundle
+- **Lightweight** - Minimal dependencies, maximum efficiency
+- **Clear & Simple** - Non-technical users should feel comfortable
+- **Hardened by Default** - Maximum privacy without breaking I2P sites
+- **Zero Cost** - Completely free and open source
 
 ---
 
-## Project Status
+## Quick Start
 
-**Pre-Alpha / Planning Stage**
+```bash
+# Install dependencies (macOS)
+brew install i2pd firefox node
 
-This project is in early development. Contributions and feedback are welcome!
+# Install I2P Manager
+npm install -g i2p-easy-manager
+
+# Run interactive dashboard
+i2p-manager
+
+# Or use individual commands
+i2p-manager start
+i2p-manager status
+```
+
+---
+
+## Features
+
+### Interactive Dashboard Mode
+Run `i2p-manager` with no arguments to launch a clean, interactive dashboard:
+
+```
+╔══════════════════════════════════════════════════════════╗
+║              I2P EASY MANAGER v0.1.0                     ║
+╚══════════════════════════════════════════════════════════╝
+
+Status: ● CONNECTED
+Peers:  156 routers
+Tunnels: 8 active
+
+[1] Start I2P              [5] View Configuration
+[2] Stop I2P               [6] View Logs
+[3] Restart I2P            [7] Reset Everything
+[4] Launch I2P Browser     [8] Help & About
+
+[Q] Quit
+
+Choose an option:
+```
+
+### Command-Line Interface
+All dashboard functions available as standalone commands:
+
+```bash
+i2p-manager start          # Start I2P + launch browser
+i2p-manager stop           # Stop I2P
+i2p-manager status         # Check connection
+i2p-manager browser        # Launch I2P Firefox profile
+i2p-manager logs           # View I2P router logs
+i2p-manager config         # Edit configuration
+i2p-manager reset          # Clean up everything
+```
+
+---
+
+## Installation
+
+### Prerequisites
+
+**macOS:**
+```bash
+brew install i2pd firefox node
+```
+
+**Linux (Ubuntu/Debian):**
+```bash
+sudo apt update
+sudo apt install i2pd firefox nodejs npm
+```
+
+**Linux (Arch):**
+```bash
+sudo pacman -S i2pd firefox nodejs npm
+```
+
+### Install I2P Manager
+
+**Option 1: NPM (Future)**
+```bash
+npm install -g i2p-easy-manager
+i2p-manager
+```
+
+**Option 2: From Source**
+```bash
+git clone https://github.com/eliasz130/i2p-easy-manager.git
+cd i2p-easy-manager
+npm install
+npm link
+i2p-manager
+```
+
+---
+
+## First Run
+
+When you first run `i2p-manager`, it will:
+
+1. ✓ Check for Firefox and I2Pd
+2. ✓ Create dedicated Firefox profile
+3. ✓ Apply maximum privacy hardening
+4. ✓ Configure I2P proxy settings
+5. ✓ Start I2P router
+
+**Important:** First connection takes 10-30 minutes to integrate into the I2P network. This is normal.
+
+---
+
+## Privacy & Security
+
+### Firefox Hardening Applied
+
+Based on Arkenfox user.js with I2P-specific optimizations:
+
+**Privacy Protections:**
+- ✓ Fingerprinting resistance enabled
+- ✓ WebRTC disabled (prevents IP leaks)
+- ✓ WebGL disabled (prevents GPU fingerprinting)
+- ✓ All telemetry disabled
+- ✓ DNS over proxy enforced
+- ✓ Third-party cookies blocked
+- ✓ Tracking protection (strict mode)
+
+**I2P-Specific Settings:**
+- ✓ All traffic routed through I2P proxy (127.0.0.1:4444)
+- ✓ DNS queries through I2P
+- ✓ .i2p domain resolution enabled
+- ✓ HTTP/HTTPS proxy configured
+- ✓ No clearnet fallback (prevents leaks)
+
+**What's NOT Hardened:**
+- JavaScript enabled (required for most I2P sites)
+- Cookies allowed for .i2p domains (needed for functionality)
+- Canvas API available (many I2P sites require it)
+- IndexedDB enabled (used by some I2P applications)
+
+This configuration provides maximum security while keeping I2P sites fully functional.
+
+---
+
+## Usage
+
+### Interactive Dashboard
+
+Simply run:
+```bash
+i2p-manager
+```
+
+Navigate using number keys or arrow keys. The dashboard shows:
+- Real-time connection status
+- Peer count (network health indicator)
+- Active tunnels
+- Quick access to all functions
+
+### Command-Line Mode
+
+For scripts or quick operations:
+
+```bash
+# Start I2P and browser
+i2p-manager start
+
+# Check if connected
+i2p-manager status
+
+# Launch browser only (if I2P already running)
+i2p-manager browser
+
+# Stop I2P
+i2p-manager stop
+
+# View last 50 log lines
+i2p-manager logs
+
+# Follow logs in real-time
+i2p-manager logs -f
+
+# Edit configuration
+i2p-manager config
+
+# Complete reset (removes profile and config)
+i2p-manager reset
+```
+
+---
+
+## Configuration
+
+### Default Settings
+
+```json
+{
+  "i2pd": {
+    "host": "127.0.0.1",
+    "httpPort": 4444,
+    "httpsPort": 4444,
+    "socksPort": 4447,
+    "consolePort": 7070
+  },
+  "firefox": {
+    "profileName": "i2p-secure",
+    "hardenWithArkenfox": true
+  },
+  "dashboard": {
+    "refreshInterval": 5,
+    "showWelcome": true
+  }
+}
+```
+
+### Customization
+
+Edit config:
+```bash
+i2p-manager config
+```
+
+Or manually edit:
+- **macOS/Linux:** `~/.config/i2p-manager/config.json`
+- **Windows:** `%LOCALAPPDATA%\i2p-manager\config.json`
 
 ---
 
 ## Architecture
 
-### Core Components
+### Lightweight Design
 
-1. **I2Pd Router Manager** - Controls I2Pd daemon lifecycle
-2. **Firefox Profile Configurator** - Creates and manages hardened Firefox profile
-3. **Control Interface** - Simple UI for I2P management
-4. **Auto-Configuration** - Automated setup and optimization
+Total size: ~15MB (including all dependencies)
 
-### What This App Does
+**Core Components:**
+1. **I2Pd Controller** - Manages router lifecycle
+2. **Firefox Profile Manager** - Creates and configures hardened profile
+3. **Interactive Dashboard** - Clean TUI for easy management
+4. **CLI Commands** - Direct access to all functions
 
-Instead of bundling a browser, this lightweight manager:
+**Dependencies:**
+- `blessed` - Terminal UI framework (dashboard)
+- `blessed-contrib` - Dashboard widgets
+- `chalk` - Terminal colors
+- `commander` - CLI framework
+- `fs-extra` - File operations
+- `ora` - Loading spinners
 
-- Installs and manages I2Pd
-- Creates a dedicated Firefox profile configured for I2P
-- Applies hardened Firefox settings (Arkenfox/Betterfox)
-- Installs and configures uBlock Origin with maximum blocking
-- Provides simple start/stop controls
-- Launches Firefox with the I2P profile automatically
-
-### Technology Stack
-
-- **I2P Implementation**: [I2Pd](https://github.com/PurpleI2P/i2pd) (bundled)
-- **Browser**: User's existing Firefox installation (auto-configured)
-- **UI Framework**: Electron or Tauri (TBD)
-- **Languages**: JavaScript/TypeScript, Shell scripting
-- **Primary Platform**: macOS (Apple Silicon optimized)
-- **Cost**: $0 - Completely free and open source
+No heavy frameworks, no bundled browsers, no bloat.
 
 ---
 
-## Planned Features
+## Security Considerations
 
-### Phase 1 - Configuration Manager (MVP)
+### What This Tool Does
 
-- [ ] Bundled I2Pd installation (Apple Silicon native)
-- [ ] I2Pd lifecycle management (start/stop/status)
-- [ ] Automated Firefox profile creation
-- [ ] I2P proxy configuration (HTTP: 4444, HTTPS: 4445)
-- [ ] Arkenfox user.js integration
-- [ ] uBlock Origin auto-install with maximum blocking presets
-- [ ] Connection status indicator
-- [ ] macOS menu bar integration
-- [ ] Simple "Start I2P Browser" button
+✓ Configures Firefox to use I2P proxy  
+✓ Applies privacy hardening to Firefox  
+✓ Manages I2Pd router  
+✓ Prevents common privacy leaks  
 
-### Phase 2 - Enhanced Management
+### What You Should Know
 
-- [ ] Address book management
-- [ ] Built-in I2P site directory (.i2p bookmarks)
-- [ ] Bandwidth controls
-- [ ] Tunnel manager
-- [ ] Network status dashboard
-- [ ] Auto-update checker for I2Pd
-- [ ] Multiple profile support
+⚠️ **The I2P profile only protects I2P traffic**  
+- Other Firefox profiles are not affected
+- System traffic still uses regular internet
+- Other applications are not proxied
 
-### Phase 3 - Advanced Features
+⚠️ **I2P is not Tor**  
+- Different network with different properties
+- Primarily designed for hidden services (.i2p sites)
+- Slower than Tor for regular web browsing
 
-- [ ] Custom tunnel creation
-- [ ] Advanced I2Pd configuration GUI
-- [ ] Backup/restore profiles
-- [ ] Cross-platform support (Windows, Linux)
-- [ ] Optional: Embedded browser (if resources allow)
+⚠️ **First connection takes time**  
+- 10-30 minutes to build circuits
+- Need 50+ peers for good connectivity
+- Be patient during initial setup
 
 ---
 
-## Firefox Configuration Details
+## Troubleshooting
 
-### Hardened Profile Setup
+### Dashboard Won't Start
 
-The manager creates a dedicated Firefox profile with:
+```bash
+# Check dependencies
+i2p-manager status
 
-**Base Configuration:**
+# Reset and try again
+i2p-manager reset
+i2p-manager
+```
 
-- [Arkenfox user.js](https://github.com/arkenfox/user.js) - Comprehensive privacy/security hardening
-- OR [Betterfox](https://github.com/yokoffing/Betterfox) - Balance of privacy and usability
-- Custom I2P proxy settings (PAC file or manual config)
+### I2Pd Won't Start
 
-**uBlock Origin Configuration:**
+```bash
+# Check if installed
+which i2pd
 
-- Auto-installed from Mozilla Add-ons
-- Maximum blocking mode enabled:
-  - Block all 3rd-party scripts (NoScript-like behavior)
-  - Block all 3rd-party frames
-  - Block all large media elements
-  - Hard mode enabled
-  - All filter lists enabled
-- Custom I2P-specific filters (if needed)
+# Try manual start
+brew services start i2pd        # macOS
+sudo systemctl start i2pd       # Linux
 
-**Additional Extensions (Optional):**
+# Check logs
+i2p-manager logs
+```
 
-- CanvasBlocker (fingerprinting protection)
-- Cookie AutoDelete
-- LocalCDN
+### Can't Access .i2p Sites
 
-**Firefox Settings Applied:**
+1. Wait 10-30 minutes after first start
+2. Check peer count: `i2p-manager status`
+3. Need 50+ peers for good connectivity
+4. Visit console: http://127.0.0.1:7070
+5. Try restarting: `i2p-manager restart`
 
-```javascript
-// Proxy configuration
-user_pref("network.proxy.type", 1);
-user_pref("network.proxy.http", "127.0.0.1");
-user_pref("network.proxy.http_port", 4444);
-user_pref("network.proxy.ssl", "127.0.0.1");
-user_pref("network.proxy.ssl_port", 4444);
-user_pref("network.proxy.no_proxies_on", "");
+### Browser Opens but No Proxy
 
-// Privacy hardening (subset from Arkenfox)
-user_pref("privacy.resistFingerprinting", true);
-user_pref("webgl.disabled", true);
-user_pref("network.dns.disablePrefetch", true);
-user_pref("network.prefetch-next", false);
-// ... (full list in configuration files)
+```bash
+# Verify profile configuration
+i2p-manager config
+
+# Reinitialize profile
+i2p-manager reset
+i2p-manager
 ```
 
 ---
 
-## System Requirements
-
-### User Requirements
-
-- Firefox must be installed on the system
-- No prior I2P knowledge needed
-- Minimal technical expertise required
-
-### System Requirements
-
-- **OS**: macOS 12 (Monterey) or later
-- **Chip**: Apple Silicon (M1/M2/M3) or Intel
-- **RAM**: 512MB minimum, 1GB+ recommended
-- **Storage**: 200MB for application + I2P data
-- **Network**: Active internet connection
-- **Firefox**: Version 115+ installed
-
----
-
-## Development Setup
-
-### Prerequisites
-
-**Install Xcode Command Line Tools:**
-
-```bash
-xcode-select --install
-```
-
-**Install Homebrew (if not already installed):**
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-**Install required dependencies:**
-
-```bash
-# Install build tools and libraries for I2Pd
-brew install cmake openssl boost git
-
-# For Apple Silicon, ensure you're using ARM64 versions
-arch -arm64 brew install cmake openssl boost
-
-# Install Node.js for Electron development
-brew install node
-
-# Optional: Install Nix for reproducible development environment
-# See: https://nixos.org/download.html
-sh <(curl -L https://nixos.org/nix/install)
-```
-
----
-
-### Building I2Pd for macOS (Apple Silicon)
-
-```bash
-# Clone I2Pd
-git clone https://github.com/PurpleI2P/i2pd.git
-cd i2pd
-
-# Build for Apple Silicon
-make HOMEBREW=1
-
-# Test the build
-./i2pd --help
-```
-
----
-
-### Project Setup
-
-#### Option 1: Using Nix (Recommended)
-
-If you have Nix with flakes enabled:
-
-```bash
-# Clone this repository
-git clone https://github.com/yourusername/i2p-easy-manager.git
-cd i2p-easy-manager
-
-# Enter development environment (automatically installs all dependencies)
-nix develop
-
-# Download required resources
-nix run .#download-arkenfox
-nix run .#download-extensions
-
-# Install Node.js dependencies
-npm install
-
-# Run development version
-npm run dev
-```
-
-**Using direnv (Optional but Recommended):**
-
-```bash
-# Create .envrc file
-echo "use flake" > .envrc
-direnv allow
-
-# Now the environment loads automatically when you cd into the directory
-```
-
-**Enable Nix Flakes (if not already enabled):**
-
-```bash
-# Add to ~/.config/nix/nix.conf or /etc/nix/nix.conf
-mkdir -p ~/.config/nix
-echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-```
-
-#### Option 2: Manual Setup (Without Nix)
-
-```bash
-# Clone this repository
-git clone https://github.com/yourusername/i2p-easy-manager.git
-cd i2p-easy-manager
-
-# Install Node.js dependencies
-npm install
-
-# Download Arkenfox user.js
-curl -o resources/configs/arkenfox-user.js https://raw.githubusercontent.com/arkenfox/user.js/master/user.js
-
-# Download uBlock Origin
-# (Manual download from https://addons.mozilla.org/firefox/addon/ublock-origin/)
-
-# Build I2Pd (see Building I2Pd section above)
-
-# Run development version
-npm run dev
-```
-
----
-
-### Firefox Profile Management
-
-```bash
-# Find Firefox profiles directory on macOS
-~/Library/Application Support/Firefox/Profiles/
-
-# The app will create a new profile named "i2p-profile.default"
-# Located at: ~/Library/Application Support/Firefox/Profiles/xxxxxxxx.i2p-profile/
-```
-
----
-
-### Nix Flake Commands
-
-If using Nix, these convenience commands are available:
-
-```bash
-# Enter development shell with all dependencies
-nix develop
-
-# Run development server
-nix run .#dev
-
-# Build I2Pd binary
-nix run .#build-i2pd
-
-# Download Firefox extensions (uBlock Origin)
-nix run .#download-extensions
-
-# Download Arkenfox user.js
-nix run .#download-arkenfox
-
-# Build the entire application
-nix build
-```
-
----
-
-## Project Structure
-
-```
-i2p-easy-manager/
-├── docs/                       # Documentation
-│   ├── architecture.md         # System architecture
-│   ├── user-guide.md           # End-user documentation
-│   ├── development.md          # Developer guide
-│   └── firefox-hardening.md    # Firefox configuration details
-│
-├── src/
-│   ├── main/                   # Electron main process
-│   │   ├── i2pd-manager.js     # I2Pd lifecycle control
-│   │   ├── firefox-config.js   # Firefox profile setup
-│   │   └── profile-hardener.js # Apply Arkenfox/Betterfox
-│   │
-│   ├── renderer/               # Electron renderer (UI)
-│   │   ├── components/         # UI components
-│   │   └── App.jsx             # Main application
-│   │
-│   └── utils/                  # Utilities and helpers
-│
-├── resources/
-│   ├── icons/                  # Application icons (.icns)
-│   │
-│   ├── configs/                # Configuration files
-│   │   ├── arkenfox-user.js    # Arkenfox user.js
-│   │   ├── i2p-overrides.js    # I2P-specific Firefox prefs
-│   │   ├── ublock-settings.json # uBlock Origin config
-│   │   └── i2pd.conf           # Default I2Pd configuration
-│   │
-│   ├── i2pd-bin/               # Bundled I2Pd binaries
-│   │   ├── arm64/              # Apple Silicon binary
-│   │   └── x86_64/             # Intel binary
-│   │
-│   └── extensions/             # Browser extensions (.xpi files)
-│       └── ublock-origin.xpi   # uBlock Origin installer
-│
-├── scripts/                    # Build and utility scripts
-│   ├── build-i2pd.sh           # Build I2Pd for bundling
-│   ├── build-macos.sh          # macOS app build script
-│   ├── package-dmg.sh          # DMG creation script
-│   └── download-extensions.sh  # Fetch Firefox extensions
-│
-├── tests/                      # Test suite
-│
-├── .github/
-│   └── workflows/              # GitHub Actions for CI/CD
-│
-├── flake.nix                   # Nix flake for reproducible builds
-├── flake.lock                  # Locked Nix dependencies
-├── LICENSE
-├── README.md
-└── CONTRIBUTING.md
-```
-
----
-
-## macOS-Specific Features
-
-### Planned Integrations
-
-- **Menu Bar App** - Quick I2P start/stop, status at a glance
-- **Dock Integration** - Connection status badge
-- **Notification Center** - I2P connection notifications
-- **LaunchAgent** - Optional start on login
-- **Spotlight** - Quick launch via Spotlight search
-
-### Distribution (Free)
-
-- Unsigned .dmg for direct download (users bypass Gatekeeper with right-click > Open)
-- GitHub Releases for distribution
-- No App Store (requires $99/year developer account)
-- Future: Homebrew cask for easy installation
+## Comparison: CLI vs GUI
+
+| Feature            | CLI (This Branch) | GUI (Separate)  |
+|--------------------|-------------------|-----------------|
+| Dashboard          | Terminal-based    | Native window   |
+| System Integration | Commands          | Menu bar/tray   |
+| Resource Usage     | ~20MB RAM         | ~??MB RAM       |
+| Startup Time       | Instant           | ? seconds       |
+| Automation         | Easy (scriptable) | Limited         |
+| User-Friendliness  | Good              | Excellent       |
+| Platform Support   | All               | macOS/Linux/Win |
+
+Choose CLI if you:
+- Prefer terminal workflows
+- Want to script I2P management
+- Need minimal resource usage
+- Work on servers/headless systems
+
+Choose GUI if you:
+- Want visual indicators
+- Prefer point-and-click
+- Need system tray integration
+- Are new to command-line tools
 
 ---
 
 ## Contributing
 
-Contributions are welcome! This project is in early stages, so there's plenty of opportunity to shape its direction.
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md)
 
-### How to Contribute
+**Areas needing help:**
+- Testing on different systems
+- Windows support improvements
+- Additional I2P site bookmarks
+- Documentation improvements
+- Translation to other languages
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+---
 
-### Areas Needing Help
+## Roadmap
 
-- I2Pd integration and automation
-- Firefox profile management and hardening
-- UI/UX design (macOS Human Interface Guidelines)
-- Testing on different Mac models
-- Documentation and user guides
-- Extension configuration automation
-- Shell scripting for setup automation
+### CLI v0.2 (Next Release)
+- [ ] Auto-download latest Arkenfox
+- [ ] Bandwidth monitoring in dashboard
+- [ ] Tunnel statistics
+- [ ] Built-in I2P site directory
+- [ ] Profile backup/restore
+- [ ] Multi-profile support
+
+### GUI v0.1 (Separate Branch)
+- [ ] Native desktop application
+- [ ] System tray integration
+- [ ] Visual connection status
+- [ ] Built-in bookmark manager
+- [ ] One-click installer
 
 ---
 
 ## Resources
 
-### I2P Network
-
-- [I2P Official Website](https://geti2p.net/)
-- [I2Pd Project](https://github.com/PurpleI2P/i2pd)
-- [I2P Documentation](https://geti2p.net/en/docs)
-
-### Firefox Hardening
-
-- [Arkenfox user.js](https://github.com/arkenfox/user.js) - Privacy & security hardening
-- [Betterfox](https://github.com/yokoffing/Betterfox) - Alternative hardening approach
-- [uBlock Origin Wiki](https://github.com/gorhill/uBlock/wiki) - Advanced blocking
-- [Firefox Profile Manager](https://support.mozilla.org/en-US/kb/profile-manager-create-remove-switch-firefox-profiles)
-
-### macOS Development
-
-- [Electron Documentation](https://www.electronjs.org/docs/latest)
-- [Tauri Documentation](https://tauri.app/)
-- [macOS App Distribution Guide](https://developer.apple.com/distribute/)
-
-### Nix
-
-- [Nix Flakes](https://nixos.wiki/wiki/Flakes) - Reproducible development environments
-- [Nix Pills](https://nixos.org/guides/nix-pills/) - Learn Nix
-- [Zero to Nix](https://zero-to-nix.com/) - Quick start guide
-
-### Privacy & Security
-
-- [I2P Threat Model](https://geti2p.net/en/docs/how/threat-model)
-- [I2P Compared to Tor](https://geti2p.net/en/comparison/tor)
+- [I2P Network](https://geti2p.net/)
+- [I2Pd Documentation](https://i2pd.readthedocs.io/)
+- [Arkenfox user.js](https://github.com/arkenfox/user.js)
+- [I2P Forum](http://i2pforum.i2p) - (Access via I2P)
+- [Planet I2P](http://planet.i2p) - (Access via I2P)
 
 ---
 
 ## License
 
-TBD - To be determined (GPL-3.0, MIT, or Apache-2.0)
+GPL-3.0 - See [LICENSE](LICENSE)
 
-Likely **GPL-3.0** to align with I2Pd and ensure the project remains free and open source.
+This ensures the project remains free and open source forever.
 
 ---
 
 ## Acknowledgments
 
-- The I2P development community
-- I2Pd developers
+- I2P and I2Pd development teams
 - Arkenfox project for Firefox hardening
-- uBlock Origin developers
-- Tor Browser project (for inspiration)
+- The privacy community
 
 ---
 
-## Contact
+## Support
 
-- **Issues**: Use GitHub Issues for bug reports and feature requests
-- **Discussions**: Use GitHub Discussions for questions and ideas
-
----
-
-## Known Considerations
-
-- **Unsigned App**: Users will see Gatekeeper warning (right-click > Open to bypass)
-- **Firefox Required**: App won't work without Firefox pre-installed
-- **Profile Conflicts**: Users should not manually modify the I2P Firefox profile
-- **First Launch**: I2Pd takes 10-30 minutes to integrate into network (this is normal)
-
----
-
-## Future Possibilities
-
-If the project grows and funding becomes available:
-
-- Embedded browser option
-- iOS/iPadOS companion app
-- Code signing certificate ($99/year)
-- Mac App Store distribution
-- Windows and Linux versions
+- **Issues:** GitHub Issues
+- **Discussions:** GitHub Discussions
+- **I2P Forum:** http://i2pforum.i2p (via I2P)
 
 ---
 
 ## Disclaimer
 
-This software is provided as-is. Users are responsible for understanding the legal implications of using anonymous networks in their jurisdiction. The developers assume no liability for misuse.
+This tool configures existing software (Firefox and I2Pd). Users are responsible for understanding the legal implications of anonymous networks in their jurisdiction. The developers assume no liability for misuse.
 
-**Note**: This is a configuration manager, not a fork or modification of Firefox or I2Pd. It simply automates setup and configuration of these existing tools.
+**Use responsibly and respect others' privacy.**
