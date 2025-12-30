@@ -1,54 +1,38 @@
 # I2P Easy Manager
 
-A lightweight, user-friendly tool that simplifies I2P network access through automated I2Pd and Firefox configuration.
+> A lightweight, user-friendly tool that simplifies access to the I2P (Invisible Internet Project) network through automated I2Pd and Firefox configuration.
 
-**Two versions available:**
-- **CLI** - Interactive dashboard + command-line interface (this branch)
-- **GUI** - Desktop application with system tray (separate branch)
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](LICENSE)
+[![Python: 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Platform: Cross-Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey.svg)](https://github.com/yourusername/i2p-easy-manager)
 
 ---
 
-## Project Philosophy
+## 🌟 Features
 
-- **Lightweight** - Minimal dependencies, maximum efficiency
-- **Clear & Simple** - Non-technical users should feel comfortable
-- **Hardened by Default** - Maximum privacy without breaking I2P sites
+- **Interactive Dashboard** - Clean terminal UI with real-time status updates
+- **One-Command Setup** - Automated Firefox profile creation and hardening
+- **Maximum Privacy** - WebRTC disabled, fingerprinting protection, no telemetry
+- **I2P Optimized** - Pre-configured for I2P network with proper proxy settings
+- **Cross-Platform** - Works on macOS, Linux, and Windows
+- **Lightweight** - Only ~5MB with 4 dependencies
 - **Zero Cost** - Completely free and open source
 
 ---
 
-## Quick Start
+## 📸 Screenshots
 
-```bash
-# Install dependencies (macOS)
-brew install i2pd firefox node
-
-# Install I2P Manager
-npm install -g i2p-easy-manager
-
-# Run interactive dashboard
-i2p-manager
-
-# Or use individual commands
-i2p-manager start
-i2p-manager status
-```
-
----
-
-## Features
-
-### Interactive Dashboard Mode
-Run `i2p-manager` with no arguments to launch a clean, interactive dashboard:
-
+### Interactive Dashboard
 ```
 ╔══════════════════════════════════════════════════════════╗
 ║              I2P EASY MANAGER v0.1.0                     ║
 ╚══════════════════════════════════════════════════════════╝
 
-Status: ● CONNECTED
-Peers:  156 routers
-Tunnels: 8 active
+┌─ Connection Status ────┐  ┌─ Network Info ──────────────┐
+│ Status: ● CONNECTED    │  │ Known Peers: 156            │
+│ Router: Running        │  │ Active Tunnels: 8           │
+│ Proxy: 127.0.0.1:4444  │  │ ✓ Fully Integrated          │
+└────────────────────────┘  └─────────────────────────────┘
 
 [1] Start I2P              [5] View Configuration
 [2] Stop I2P               [6] View Logs
@@ -56,388 +40,444 @@ Tunnels: 8 active
 [4] Launch I2P Browser     [8] Help & About
 
 [Q] Quit
-
-Choose an option:
 ```
+
+---
+
+## 🚀 Quick Start
+
+### Installation
+
+**Prerequisites:**
+- Python 3.8 or higher
+- Firefox browser
+- I2Pd daemon
+
+**Install I2P Manager:**
+```bash
+pip install i2p-easy-manager
+```
+
+**Run Interactive Dashboard:**
+```bash
+i2p-manager
+```
+
+That's it! The dashboard will guide you through first-time setup.
+
+---
+
+## 📦 Installation Guide
+
+### macOS
+
+```bash
+# Install dependencies
+brew install python3 i2pd firefox
+
+# Install I2P Manager (Future)
+pip3 install i2p-easy-manager
+
+# Run
+i2p-manager
+```
+
+### Linux (Ubuntu/Debian)
+
+```bash
+# Install dependencies
+sudo apt update
+sudo apt install python3 python3-pip i2pd firefox
+
+# Install I2P Manager (Future)
+pip3 install i2p-easy-manager
+
+# Run
+i2p-manager
+```
+
+### Linux (Arch)
+
+```bash
+# Install dependencies
+sudo pacman -S python python-pip i2pd firefox
+
+# Install I2P Manager (Future)
+pip install i2p-easy-manager
+
+# Run
+i2p-manager
+```
+
+### Windows
+
+1. Install [Python 3.8+](https://www.python.org/downloads/) (check "Add to PATH")
+2. Install [Firefox](https://www.mozilla.org/firefox/)
+3. Install [I2Pd](https://i2pd.website/)
+4. Open PowerShell or Command Prompt: (Future)
+
+```powershell
+pip install i2p-easy-manager
+i2p-manager
+```
+
+---
+
+## 💻 Usage
+
+### Interactive Dashboard (Default)
+
+Simply run `i2p-manager` to launch the interactive dashboard:
+
+```bash
+i2p-manager
+```
+
+**Dashboard Controls:**
+- Press `1-8` to select menu options
+- Press `R` to refresh status
+- Press `Q` to quit
 
 ### Command-Line Interface
-All dashboard functions available as standalone commands:
+
+All dashboard functions are available as standalone commands:
 
 ```bash
-i2p-manager start          # Start I2P + launch browser
-i2p-manager stop           # Stop I2P
-i2p-manager status         # Check connection
-i2p-manager browser        # Launch I2P Firefox profile
-i2p-manager logs           # View I2P router logs
-i2p-manager config         # Edit configuration
-i2p-manager reset          # Clean up everything
-```
+# Initialize I2P profile (first time only)
+i2p-manager init
 
----
-
-## Installation
-
-### Prerequisites
-
-**macOS:**
-```bash
-brew install i2pd firefox node
-```
-
-**Linux (Ubuntu/Debian):**
-```bash
-sudo apt update
-sudo apt install i2pd firefox nodejs npm
-```
-
-**Linux (Arch):**
-```bash
-sudo pacman -S i2pd firefox nodejs npm
-```
-
-### Install I2P Manager
-
-**Option 1: NPM (Future)**
-```bash
-npm install -g i2p-easy-manager
-i2p-manager
-```
-
-**Option 2: From Source**
-```bash
-git clone https://github.com/eliasz130/i2p-easy-manager.git
-cd i2p-easy-manager
-npm install
-npm link
-i2p-manager
-```
-
----
-
-## First Run
-
-When you first run `i2p-manager`, it will:
-
-1. ✓ Check for Firefox and I2Pd
-2. ✓ Create dedicated Firefox profile
-3. ✓ Apply maximum privacy hardening
-4. ✓ Configure I2P proxy settings
-5. ✓ Start I2P router
-
-**Important:** First connection takes 10-30 minutes to integrate into the I2P network. This is normal.
-
----
-
-## Privacy & Security
-
-### Firefox Hardening Applied
-
-Based on Arkenfox user.js with I2P-specific optimizations:
-
-**Privacy Protections:**
-- ✓ Fingerprinting resistance enabled
-- ✓ WebRTC disabled (prevents IP leaks)
-- ✓ WebGL disabled (prevents GPU fingerprinting)
-- ✓ All telemetry disabled
-- ✓ DNS over proxy enforced
-- ✓ Third-party cookies blocked
-- ✓ Tracking protection (strict mode)
-
-**I2P-Specific Settings:**
-- ✓ All traffic routed through I2P proxy (127.0.0.1:4444)
-- ✓ DNS queries through I2P
-- ✓ .i2p domain resolution enabled
-- ✓ HTTP/HTTPS proxy configured
-- ✓ No clearnet fallback (prevents leaks)
-
-**What's NOT Hardened:**
-- JavaScript enabled (required for most I2P sites)
-- Cookies allowed for .i2p domains (needed for functionality)
-- Canvas API available (many I2P sites require it)
-- IndexedDB enabled (used by some I2P applications)
-
-This configuration provides maximum security while keeping I2P sites fully functional.
-
----
-
-## Usage
-
-### Interactive Dashboard
-
-Simply run:
-```bash
-i2p-manager
-```
-
-Navigate using number keys or arrow keys. The dashboard shows:
-- Real-time connection status
-- Peer count (network health indicator)
-- Active tunnels
-- Quick access to all functions
-
-### Command-Line Mode
-
-For scripts or quick operations:
-
-```bash
-# Start I2P and browser
+# Start I2P and launch Firefox
 i2p-manager start
 
-# Check if connected
+# Check connection status
 i2p-manager status
 
-# Launch browser only (if I2P already running)
+# Launch Firefox with I2P profile (if I2P already running)
 i2p-manager browser
 
-# Stop I2P
+# Stop I2P daemon
 i2p-manager stop
 
-# View last 50 log lines
-i2p-manager logs
+# Restart I2P daemon
+i2p-manager restart
 
-# Follow logs in real-time
-i2p-manager logs -f
+# View I2P router logs
+i2p-manager logs
+i2p-manager logs -f    # Follow logs in real-time
 
 # Edit configuration
 i2p-manager config
 
-# Complete reset (removes profile and config)
+# Reset everything (removes profile and config)
 i2p-manager reset
+
+# Show help
+i2p-manager --help
 ```
 
 ---
 
-## Configuration
+## 🔒 Security & Privacy
+
+### What's Protected
+
+I2P Easy Manager applies **maximum hardening** to your Firefox profile:
+
+**Critical Protections:**
+- ✅ **WebRTC disabled** - Prevents IP leaks through proxy
+- ✅ **WebGL disabled** - Prevents GPU fingerprinting
+- ✅ **All DNS through proxy** - No DNS leaks
+- ✅ **No telemetry** - Zero data sent to Mozilla
+- ✅ **No safe browsing** - No external lookups
+- ✅ **Fingerprinting resistance** - Makes your browser look generic
+
+**Privacy Features:**
+- ✅ Third-party cookies blocked
+- ✅ Tracking protection (strict mode)
+- ✅ HTTPS-only mode enabled
+- ✅ Geolocation disabled
+- ✅ No prefetching or speculation
+
+**I2P Compatibility:**
+- ✅ JavaScript enabled (required for I2P sites)
+- ✅ Canvas enabled (many sites need it)
+- ✅ Cookies allowed for .i2p domains
+- ✅ Connection optimization for I2P latency
+
+### What's NOT Protected
+
+⚠️ **Important:**
+- Only the I2P Firefox profile is hardened
+- Other Firefox profiles are not affected
+- System traffic still uses regular internet
+- Other applications are not proxied
+
+---
+
+## ⚙️ Configuration
 
 ### Default Settings
 
+Configuration is stored at:
+- **macOS/Linux:** `~/.config/i2p-manager/config.json`
+- **Windows:** `%APPDATA%\i2p-manager\config.json`
+
+**Default configuration:**
 ```json
 {
   "i2pd": {
     "host": "127.0.0.1",
-    "httpPort": 4444,
-    "httpsPort": 4444,
-    "socksPort": 4447,
-    "consolePort": 7070
+    "http_port": 4444,
+    "https_port": 4444,
+    "socks_port": 4447,
+    "console_port": 7070
   },
   "firefox": {
-    "profileName": "i2p-secure",
-    "hardenWithArkenfox": true
+    "profile_name": "i2p-secure",
+    "harden_with_arkenfox": true
   },
   "dashboard": {
-    "refreshInterval": 5,
-    "showWelcome": true
+    "refresh_interval": 5,
+    "show_welcome": true
   }
 }
 ```
 
 ### Customization
 
-Edit config:
+Edit configuration:
 ```bash
 i2p-manager config
 ```
 
-Or manually edit:
-- **macOS/Linux:** `~/.config/i2p-manager/config.json`
-- **Windows:** `%LOCALAPPDATA%\i2p-manager\config.json`
+Or manually edit the JSON file above.
 
 ---
 
-## Architecture
-
-### Lightweight Design
-
-Total size: ~15MB (including all dependencies)
-
-**Core Components:**
-1. **I2Pd Controller** - Manages router lifecycle
-2. **Firefox Profile Manager** - Creates and configures hardened profile
-3. **Interactive Dashboard** - Clean TUI for easy management
-4. **CLI Commands** - Direct access to all functions
-
-**Dependencies:**
-- `blessed` - Terminal UI framework (dashboard)
-- `blessed-contrib` - Dashboard widgets
-- `chalk` - Terminal colors
-- `commander` - CLI framework
-- `fs-extra` - File operations
-- `ora` - Loading spinners
-
-No heavy frameworks, no bundled browsers, no bloat.
-
----
-
-## Security Considerations
-
-### What This Tool Does
-
-✓ Configures Firefox to use I2P proxy  
-✓ Applies privacy hardening to Firefox  
-✓ Manages I2Pd router  
-✓ Prevents common privacy leaks  
-
-### What You Should Know
-
-⚠️ **The I2P profile only protects I2P traffic**  
-- Other Firefox profiles are not affected
-- System traffic still uses regular internet
-- Other applications are not proxied
-
-⚠️ **I2P is not Tor**  
-- Different network with different properties
-- Primarily designed for hidden services (.i2p sites)
-- Slower than Tor for regular web browsing
-
-⚠️ **First connection takes time**  
-- 10-30 minutes to build circuits
-- Need 50+ peers for good connectivity
-- Be patient during initial setup
-
----
-
-## Troubleshooting
-
-### Dashboard Won't Start
-
-```bash
-# Check dependencies
-i2p-manager status
-
-# Reset and try again
-i2p-manager reset
-i2p-manager
-```
+## 🔧 Troubleshooting
 
 ### I2Pd Won't Start
 
 ```bash
-# Check if installed
-which i2pd
+# Check if I2Pd is installed
+which i2pd  # macOS/Linux
+where i2pd  # Windows
 
-# Try manual start
+# Try starting manually
 brew services start i2pd        # macOS
 sudo systemctl start i2pd       # Linux
+# On Windows, run i2pd.exe from install directory
 
 # Check logs
 i2p-manager logs
 ```
 
-### Can't Access .i2p Sites
-
-1. Wait 10-30 minutes after first start
-2. Check peer count: `i2p-manager status`
-3. Need 50+ peers for good connectivity
-4. Visit console: http://127.0.0.1:7070
-5. Try restarting: `i2p-manager restart`
-
-### Browser Opens but No Proxy
+### Firefox Won't Launch
 
 ```bash
-# Verify profile configuration
-i2p-manager config
+# Verify Firefox is installed
+which firefox  # macOS/Linux
+where firefox  # Windows
 
 # Reinitialize profile
 i2p-manager reset
-i2p-manager
+i2p-manager init
+```
+
+### Can't Access .i2p Sites
+
+1. **Wait 10-30 minutes** after first I2Pd start (network integration)
+2. **Check peer count:** Run `i2p-manager status` - need 50+ peers
+3. **Visit console:** http://127.0.0.1:7070 to verify I2P is working
+4. **Try restarting:** Run `i2p-manager restart`
+
+### Dashboard Display Issues
+
+- Ensure terminal window is at least 80x24 characters
+- Try using command-line mode instead: `i2p-manager start`
+
+### Permission Errors (Linux)
+
+```bash
+# Add your user to i2pd group (if it exists)
+sudo usermod -a -G i2pd $USER
+newgrp i2pd
 ```
 
 ---
 
-## Comparison: CLI vs GUI
+## 🌐 Getting Started with I2P
 
-| Feature            | CLI (This Branch) | GUI (Separate)  |
-|--------------------|-------------------|-----------------|
-| Dashboard          | Terminal-based    | Native window   |
-| System Integration | Commands          | Menu bar/tray   |
-| Resource Usage     | ~20MB RAM         | ~??MB RAM       |
-| Startup Time       | Instant           | ? seconds       |
-| Automation         | Easy (scriptable) | Limited         |
-| User-Friendliness  | Good              | Excellent       |
-| Platform Support   | All               | macOS/Linux/Win |
+### First Connection
 
-Choose CLI if you:
-- Prefer terminal workflows
-- Want to script I2P management
-- Need minimal resource usage
-- Work on servers/headless systems
+**⏳ First time takes 10-30 minutes**
 
-Choose GUI if you:
-- Want visual indicators
-- Prefer point-and-click
-- Need system tray integration
-- Are new to command-line tools
+When you first run I2P, the router needs to:
+1. Find other routers on the network
+2. Build encrypted tunnels
+3. Integrate into the network
+
+This is **normal and expected**. Monitor progress:
+```bash
+i2p-manager status
+```
+
+### I2P Sites to Try
+
+Once connected (50+ peers), visit:
+
+- **http://planet.i2p** - I2P news aggregator
+- **http://i2pforum.i2p** - Community forum
+- **http://127.0.0.1:7070** - Your I2P router console
+
+### Understanding Peer Count
+
+- **< 10 peers:** Still connecting, wait longer
+- **10-50 peers:** Integrating into network
+- **50+ peers:** Fully integrated, ready to browse
+- **100+ peers:** Excellent connectivity
 
 ---
 
-## Contributing
+## 🛠️ Development
 
-We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md)
+### Install from Source
+
+```bash
+# Clone repository
+git clone https://github.com/yourusername/i2p-easy-manager.git
+cd i2p-easy-manager
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# Install in editable mode with dev dependencies
+pip install -e ".[dev]"
+
+# Run
+i2p-manager
+# Or directly: python -m i2p_manager
+```
+
+### Run Tests
+
+```bash
+pytest
+pytest --cov=i2p_manager  # With coverage
+```
+
+### Code Formatting
+
+```bash
+black i2p_manager/
+ruff check i2p_manager/
+```
+
+### Project Structure
+
+```
+i2p-easy-manager/
+├── i2p_manager/          # Main package
+│   ├── cli.py           # CLI interface
+│   ├── dashboard.py     # Interactive TUI
+│   ├── config.py        # Configuration
+│   ├── firefox.py       # Firefox manager
+│   ├── i2pd.py          # I2Pd manager
+│   ├── commands/        # CLI commands
+│   └── data/            # Static files (Arkenfox)
+├── tests/               # Test suite
+├── docs/                # Documentation
+└── pyproject.toml       # Package config
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 **Areas needing help:**
 - Testing on different systems
 - Windows support improvements
-- Additional I2P site bookmarks
 - Documentation improvements
+- Additional I2P site bookmarks
 - Translation to other languages
 
 ---
 
-## Roadmap
+## 📚 Resources
 
-### CLI v0.2 (Next Release)
-- [ ] Auto-download latest Arkenfox
-- [ ] Bandwidth monitoring in dashboard
-- [ ] Tunnel statistics
-- [ ] Built-in I2P site directory
-- [ ] Profile backup/restore
-- [ ] Multi-profile support
-
-### GUI v0.1 (Separate Branch)
-- [ ] Native desktop application
-- [ ] System tray integration
-- [ ] Visual connection status
-- [ ] Built-in bookmark manager
-- [ ] One-click installer
-
----
-
-## Resources
-
-- [I2P Network](https://geti2p.net/)
+### I2P Network
+- [Official I2P Website](https://geti2p.net/)
 - [I2Pd Documentation](https://i2pd.readthedocs.io/)
+- [I2P Compared to Tor](https://geti2p.net/en/comparison/tor)
+
+### Privacy & Security
 - [Arkenfox user.js](https://github.com/arkenfox/user.js)
-- [I2P Forum](http://i2pforum.i2p) - (Access via I2P)
-- [Planet I2P](http://planet.i2p) - (Access via I2P)
+- [I2P Threat Model](https://geti2p.net/en/docs/how/threat-model)
+
+### Python Packaging
+- [Python Packaging Guide](https://packaging.python.org/)
+- [Click Documentation](https://click.palletsprojects.com/)
+- [Rich Documentation](https://rich.readthedocs.io/)
 
 ---
 
-## License
+## 📋 Requirements
 
-GPL-3.0 - See [LICENSE](LICENSE)
+- **Python:** 3.8 or higher
+- **Firefox:** Any recent version
+- **I2Pd:** 2.48 or higher
+- **OS:** macOS 11+, Linux (Ubuntu 20.04+, Arch, Fedora), Windows 10+
+
+**Python Dependencies:**
+- `click` - CLI framework
+- `rich` - Terminal UI
+- `requests` - HTTP client
+- `psutil` - Process management
+
+---
+
+## 📄 License
+
+This project is licensed under the **GNU General Public License v3.0** - see the [LICENSE](LICENSE) file for details.
 
 This ensures the project remains free and open source forever.
 
 ---
 
-## Acknowledgments
+## ⚠️ Disclaimer
 
-- I2P and I2Pd development teams
-- Arkenfox project for Firefox hardening
-- The privacy community
+This tool configures existing software (Firefox and I2Pd). Users are responsible for understanding the legal implications of anonymous networks in their jurisdiction.
 
----
-
-## Support
-
-- **Issues:** GitHub Issues
-- **Discussions:** GitHub Discussions
-- **I2P Forum:** http://i2pforum.i2p (via I2P)
-
----
-
-## Disclaimer
-
-This tool configures existing software (Firefox and I2Pd). Users are responsible for understanding the legal implications of anonymous networks in their jurisdiction. The developers assume no liability for misuse.
+**The developers assume no liability for misuse.**
 
 **Use responsibly and respect others' privacy.**
+
+---
+
+## 🙏 Acknowledgments
+
+- The I2P and I2Pd development teams
+- Arkenfox project for Firefox hardening
+- The privacy and security community
+- All contributors to this project
+
+---
+
+## 📬 Support
+
+- **Issues:** [GitHub Issues](https://github.com/yourusername/i2p-easy-manager/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/yourusername/i2p-easy-manager/discussions)
+- **I2P Forum:** http://i2pforum.i2p (accessible via I2P network)
+
+---
+
+## 🌟 Star History
+
+If you find this project useful, please consider giving it a star on GitHub!
+
+---
+
+**Welcome to the Invisible Internet! 🚀**
