@@ -46,7 +46,7 @@
 
 ## 🚀 Quick Start
 
-### Installation
+### Installation (Future)
 
 **Prerequisites:**
 - Python 3.8 or higher
