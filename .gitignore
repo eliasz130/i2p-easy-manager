@@ -150,6 +150,7 @@ cython_debug/
 *.log
 .i2p-manager/
 config.json
+TODO.md
 
 # OS
 Thumbs.db
