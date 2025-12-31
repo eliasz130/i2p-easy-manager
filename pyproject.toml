@@ -8,8 +8,8 @@ version = "0.1.0"
 description = "Lightweight I2P network access manager"
 readme = "README.md"
 requires-python = ">=3.8"
-license = {text = "GPL-3.0-or-later"}
-authors = [{name = "eliasz130", email = "eliaspublic@icloud.com"}]
+license = { text = "GPL-3.0-or-later" }
+authors = [{ name = "tundra-node", email = "tweet-rare-presume@duck.com" }]
 keywords = ["i2p", "privacy", "anonymity", "firefox"]
 
 dependencies = [
@@ -20,12 +20,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = [
-    "pytest>=7.0.0",
-    "pytest-cov>=4.0.0",
-    "black>=23.0.0",
-    "ruff>=0.1.0",
-]
+dev = ["pytest>=7.0.0", "pytest-cov>=4.0.0", "black>=23.0.0", "ruff>=0.1.0"]
 
 [project.scripts]
 i2p-manager = "i2p_manager.cli:main"

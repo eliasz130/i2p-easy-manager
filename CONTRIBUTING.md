@@ -44,7 +44,7 @@ We are committed to providing a welcoming and inspiring community for all. Pleas
 ### Reporting Bugs
 
 **Before submitting a bug report:**
-1. Check the [existing issues](https://github.com/yourusername/i2p-easy-manager/issues)
+1. Check the [existing issues](https://github.com/tundra-node/i2p-easy-manager/issues)
 2. Try the latest version from the main branch
 3. Collect information about your environment
 
@@ -119,7 +119,7 @@ See the [Development Setup](#development-setup) section below.
 
 ```bash
 # Fork the repository on GitHub, then clone your fork
-git clone https://github.com/YOUR_USERNAME/i2p-easy-manager.git
+git clone https://github.com/tundra-node/i2p-easy-manager.git
 cd i2p-easy-manager
 
 # Create a virtual environment
@@ -541,7 +541,7 @@ We'll work with you to address the issue privately.
 
 ### Regular Bugs
 
-Use the [bug report template](https://github.com/yourusername/i2p-easy-manager/issues/new?template=bug_report.md) on GitHub.
+Use the [bug report template](https://github.com/tundra-node/i2p-easy-manager/issues/new?template=bug_report.md) on GitHub.
 
 Include:
 - Clear description
@@ -554,7 +554,7 @@ Include:
 
 ## 💡 Suggesting Features
 
-Use the [feature request template](https://github.com/yourusername/i2p-easy-manager/issues/new?template=feature_request.md).
+Use the [feature request template](https://github.com/tundra-node/i2p-easy-manager/issues/new?template=feature_request.md).
 
 **Good feature requests:**
 - Solve a real problem

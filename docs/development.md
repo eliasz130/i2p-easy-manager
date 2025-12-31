@@ -23,7 +23,7 @@ Guide for contributing to and developing I2P Easy Manager.
 
 ```bash
 # Fork on GitHub, then clone
-git clone https://github.com/YOUR_USERNAME/i2p-easy-manager.git
+git clone https://github.com/tundra-node/i2p-easy-manager.git
 cd i2p-easy-manager
 ```
 

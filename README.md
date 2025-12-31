@@ -4,7 +4,7 @@
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](LICENSE)
 [![Python: 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![Platform: Cross-Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey.svg)](https://github.com/yourusername/i2p-easy-manager)
+[![Platform: Cross-Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey.svg)](https://github.com/tundra-node/i2p-easy-manager)
 
 ---
 
@@ -345,7 +345,7 @@ Once connected (50+ peers), visit:
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/i2p-easy-manager.git
+git clone https://github.com/tundra-node/i2p-easy-manager.git
 cd i2p-easy-manager
 
 # Create virtual environment
@@ -468,8 +468,8 @@ This tool configures existing software (Firefox and I2Pd). Users are responsible
 
 ## 📬 Support
 
-- **Issues:** [GitHub Issues](https://github.com/yourusername/i2p-easy-manager/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/yourusername/i2p-easy-manager/discussions)
+- **Issues:** [GitHub Issues](https://github.com/tundra-node/i2p-easy-manager/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/tundra-node/i2p-easy-manager/discussions)
 - **I2P Forum:** http://i2pforum.i2p (accessible via I2P network)
 
 ---

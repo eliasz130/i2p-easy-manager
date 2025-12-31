@@ -4,7 +4,7 @@ A lightweight tool for managing I2P network access with Firefox
 """
 
 __version__ = "0.1.0"
-__author__ = "eliasz130"
+__author__ = "tundra-node"
 __license__ = "GPL-3.0-or-later"
 
 from .config import ConfigManager

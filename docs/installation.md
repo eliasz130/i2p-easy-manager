@@ -66,7 +66,7 @@ pip3 install i2p-easy-manager
 
 **Option B: From Source**
 ```bash
-git clone https://github.com/yourusername/i2p-easy-manager.git
+git clone https://github.com/tundra-node/i2p-easy-manager.git
 cd i2p-easy-manager
 pip3 install -e .
 ```

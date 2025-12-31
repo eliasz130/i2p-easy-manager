@@ -379,4 +379,4 @@ Then run: `pytest tests/test_example.py`
 
 - [Installation Guide](../docs/installation.md)
 - [Development Guide](../docs/development.md)
-- [GitHub Issues](https://github.com/yourusername/i2p-easy-manager/issues)
+- [GitHub Issues](https://github.com/tundra-node/i2p-easy-manager/issues)
